@@ -204,12 +204,11 @@ class GeneralizedPDFProcessor:
         return self.clean_text(filename.replace('_', ' ').replace('-', ' ').title())
 
     def is_valid_heading(self, text: str, context: Dict = None) -> bool:
-        """Determine if text is a valid heading using strict, generalized criteria"""
+        """Determine if text is a valid heading using generalized criteria"""
         text = text.strip()
-        text_lower = text.lower()
         
         # Basic filters
-        if len(text) < 3 or len(text) > 200:
+        if len(text) < 2 or len(text) > 200:
             return False
         
         # Reject decorative lines
@@ -217,97 +216,51 @@ class GeneralizedPDFProcessor:
             return False
         
         # Reject URLs, emails, and obvious non-headings
-        if re.match(r'^(www\.|http|@|mailto:)', text_lower):
+        if re.match(r'^(www\.|http|@|mailto:)', text.lower()):
             return False
         
         # Reject pure numbers, dates, and page numbers
-        if re.match(r'^\d+$', text) or re.match(r'^page\s+\d+', text_lower):
+        if re.match(r'^\d+$', text) or re.match(r'^page\s+\d+', text.lower()):
             return False
         
         if re.search(r'\b(19|20)\d{2}\b', text) and len(text) < 20:
             return False
         
-        # CRITICAL: Reject form field patterns and table headers
-        form_field_patterns = [
-            r'^\d+\.\s*[^A-Z]',  # "1. name of..." (form fields start lowercase after number)
-            r'^\d+\.\s*.{1,50}\s+(of|in|as|for|to)\s+',  # "6. Home Town as recorded in..."
-            r'^s\.?no\.?\s+',  # Table headers like "S.No Name Age"
-            r'\b(name|age|relationship|address|designation|pay|salary)\b',  # Common form fields
-            r'^\d+\.\s*[a-z]',  # Numbered items starting with lowercase
-            r'^\([a-z]\)',  # "(a) something" - form sub-items
-            r'^\d+\)\s*',  # "1) something" - numbered list items
-            r'^\w+\s*[:]\s*$',  # Single word followed by colon (form labels)
-        ]
+        # Positive indicators for headings
         
-        for pattern in form_field_patterns:
-            if re.search(pattern, text_lower):
-                return False
-        
-        # Reject if contains form-specific keywords
-        form_keywords = [
-            'servant', 'employee', 'claim', 'advance', 'application', 'form',
-            'signature', 'date', 'place', 'seal', 'office', 'department',
-            'pay scale', 'grade', 'designation', 'posting', 'station'
-        ]
-        
-        if any(keyword in text_lower for keyword in form_keywords):
-            return False
-        
-        # Reject table headers (multiple short words without connecting words)
-        words = text.split()
-        if len(words) >= 3 and all(len(word) <= 8 for word in words) and not any(connector in text_lower for connector in ['and', 'or', 'of', 'the', 'in', 'for', 'to']):
-            return False
-        
-        # Now check for POSITIVE heading indicators (much stricter)
-        
-        # 1. Standard document sections (strong indicators)
-        strong_section_keywords = [
-            'introduction', 'abstract', 'summary', 'conclusion', 'references',
-            'methodology', 'results', 'discussion', 'background', 'literature review',
-            'appendix', 'bibliography', 'acknowledgements', 'table of contents',
-            'executive summary', 'overview', 'scope', 'objectives', 'recommendations'
-        ]
-        
-        for keyword in strong_section_keywords:
-            if keyword in text_lower and len(text) < 100:
-                return True
-        
-        # 2. Chapter/Section numbering with meaningful titles
-        if re.match(r'^\d+\.?\s+[A-Z][a-z]+.*[a-z]$', text) and len(text) > 15:
-            # Must be substantial text, not just "1. Name" but "1. Introduction to Methods"
-            words = text.split()[1:]  # Skip the number
-            if len(words) >= 2 and not any(word.lower() in form_keywords for word in words):
-                return True
-        
-        # 3. Multi-level numbering (1.1, 1.1.1) with substantial content
-        if re.match(r'^\d+\.\d+\.?\s+[A-Z].*[a-z]$', text) and len(text) > 10:
+        # 1. Numbered sections
+        if re.match(r'^\d+\.?\s+[A-Za-z]', text):
             return True
         
-        if re.match(r'^\d+\.\d+\.\d+\.?\s+.*[a-z]$', text):
+        if re.match(r'^\d+\.\d+\.?\s+[A-Za-z]', text):
             return True
         
-        # 4. All caps headings (but not form fields)
-        if text.isupper() and 8 <= len(text) <= 80:
-            # Must not contain form indicators
-            if not any(indicator in text_lower for indicator in ['form', 'application', 'claim', 'pay', 'grade']):
+        if re.match(r'^\d+\.\d+\.\d+\.?\s+[A-Za-z]', text):
+            return True
+        
+        # 2. Standard document sections
+        text_lower = text.lower()
+        for level, keywords in self.section_keywords.items():
+            if any(keyword in text_lower for keyword in keywords):
                 return True
         
-        # 5. Title case with multiple meaningful words
-        if text.istitle() and len(text.split()) >= 3:
-            # Check if it's a meaningful title, not a form field
-            if not any(form_word in text_lower for form_word in form_keywords):
-                return True
-        
-        # 6. Question headings (but substantial ones)
-        if text.endswith('?') and len(text.split()) >= 4 and len(text) > 20:
+        # 3. Capitalization patterns that suggest headings
+        if text.isupper() and 5 <= len(text) <= 50:
             return True
         
-        # 7. Appendix patterns
-        if re.match(r'^appendix\s*[a-z]?:?\s*', text_lower) and len(text) > 8:
+        if text.istitle() and len(text.split()) >= 2:
             return True
         
-        # 8. Chapter patterns
-        if re.match(r'^chapter\s+\d+', text_lower):
+        # 4. Appendix patterns
+        if re.match(r'^appendix\s*[a-z]?:?', text.lower()):
+            return True
+        
+        # 5. Question patterns (common in documents)
+        if text.endswith('?') and len(text.split()) >= 3:
+            return True
+        
+        # 6. Colon endings (section descriptions)
+        if text.endswith(':') and len(text.split()) >= 2 and not text.startswith('http'):
             return True
         
         return False
