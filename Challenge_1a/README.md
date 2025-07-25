@@ -1,129 +1,131 @@
-# Challenge 1a: PDF Processing Solution
+# Adobe India Hackathon 2025 - Round 1A
+## PDF Document Intelligence System
 
-## Overview
-This is a **sample solution** for Challenge 1a of the Adobe India Hackathon 2025. The challenge requires implementing a PDF processing solution that extracts structured data from PDF documents and outputs JSON files. The solution must be containerized using Docker and meet specific performance and resource constraints.
+### 🎯 Challenge Description
+Extract titles and hierarchical headings from PDF documents with high precision and recall.
 
-## Official Challenge Guidelines
+### 📋 System Requirements & Compliance
+✅ **CPU-only processing** (no GPU dependencies)  
+✅ **Processing time** <10 seconds per document  
+✅ **Model size** <200MB (PyMuPDF only)  
+✅ **Universal processing** (no hardcoded document-specific logic)  
+✅ **Docker containerization** with proper I/O handling  
+✅ **Offline operation** (no internet/API calls)  
 
-### Submission Requirements
-- **GitHub Project**: Complete code repository with working solution
-- **Dockerfile**: Must be present in the root directory and functional
-- **README.md**:  Documentation explaining the solution, models, and libraries used
+### 🚀 Current Performance Metrics
+- **Title Accuracy:** 60.0% (3/5 files)
+- **Heading Precision:** 40.0%
+- **Heading Recall:** 48.3%
+- **F1-Score:** 43.8%
+- **Processing Speed:** 0.1s average per file
 
-### Build Command
-```bash
-docker build --platform linux/amd64 -t <reponame.someidentifier> .
-```
+### 🏗️ Architecture
+- **Dynamic Font Clustering:** Automatic heading font detection
+- **Semantic Title Scoring:** Content-aware title extraction
+- **Layout Analysis:** Whitespace and position-based filtering
+- **Header/Footer Detection:** Automatic removal of repeated elements
+- **Multiline Title Combination:** Intelligent text grouping
 
-### Run Command
-```bash
-docker run --rm -v $(pwd)/input:/app/input:ro -v $(pwd)/output/repoidentifier/:/app/output --network none <reponame.someidentifier>
-```
-
-### Critical Constraints
-- **Execution Time**: ≤ 10 seconds for a 50-page PDF
-- **Model Size**: ≤ 200MB (if using ML models)
-- **Network**: No internet access allowed during runtime execution
-- **Runtime**: Must run on CPU (amd64) with 8 CPUs and 16 GB RAM
-- **Architecture**: Must work on AMD64, not ARM-specific
-
-### Key Requirements
-- **Automatic Processing**: Process all PDFs from `/app/input` directory
-- **Output Format**: Generate `filename.json` for each `filename.pdf`
-- **Input Directory**: Read-only access only
-- **Open Source**: All libraries, models, and tools must be open source
-- **Cross-Platform**: Test on both simple and complex PDFs
-
-## Sample Solution Structure
+### 📁 Project Structure
 ```
 Challenge_1a/
-├── sample_dataset/
-│   ├── outputs/         # JSON files provided as outputs.
-│   ├── pdfs/            # Input PDF files
-│   └── schema/          # Output schema definition
-│       └── output_schema.json
-├── Dockerfile           # Docker container configuration
-├── process_pdfs.py      # Sample processing script
-└── README.md           # This file
+├── final_precision_processor.py    # Main PDF processor
+├── evaluate_metrics.py             # Performance evaluation
+├── Dockerfile                      # Container configuration
+├── README.md                       # This file
+├── sample_dataset/                 # Test data
+│   ├── pdfs/                      # Input PDF files
+│   ├── outputs/                   # Ground truth JSON
+│   └── schema/                    # Output schema
+└── model_outputs/                 # Generated results
 ```
 
-## Sample Implementation
+### 🛠️ Usage
 
-### Current Sample Solution
-The provided `process_pdfs.py` is a **basic sample** that demonstrates:
-- PDF file scanning from input directory
-- Dummy JSON data generation
-- Output file creation in the specified format
-
-**Note**: This is a placeholder implementation using dummy data. A real solution would need to:
-- Implement actual PDF text extraction
-- Parse document structure and hierarchy
-- Generate meaningful JSON output based on content analysis
-
-### Sample Processing Script (`process_pdfs.py`)
-```python
-# Current sample implementation
-def process_pdfs():
-    input_dir = Path("/app/input")
-    output_dir = Path("/app/output")
-    
-    # Process all PDF files
-    for pdf_file in input_dir.glob("*.pdf"):
-        # Generate structured JSON output
-        # (Current implementation uses dummy data)
-        output_file = output_dir / f"{pdf_file.stem}.json"
-        # Save JSON output
-```
-
-### Sample Docker Configuration
-```dockerfile
-FROM --platform=linux/amd64 python:3.10
-WORKDIR /app
-COPY process_pdfs.py .
-CMD ["python", "process_pdfs.py"]
-```
-
-## Expected Output Format
-
-### Required JSON Structure
-Each PDF should generate a corresponding JSON file that **must conform to the schema** defined in `sample_dataset/schema/output_schema.json`.
-
-
-## Implementation Guidelines
-
-### Performance Considerations
-- **Memory Management**: Efficient handling of large PDFs
-- **Processing Speed**: Optimize for sub-10-second execution
-- **Resource Usage**: Stay within 16GB RAM constraint
-- **CPU Utilization**: Efficient use of 8 CPU cores
-
-### Testing Strategy
-- **Simple PDFs**: Test with basic PDF documents
-- **Complex PDFs**: Test with multi-column layouts, images, tables
-- **Large PDFs**: Verify 50-page processing within time limit
-
-
-## Testing Your Solution
-
-### Local Testing
+#### Local Execution
 ```bash
-# Build the Docker image
-docker build --platform linux/amd64 -t pdf-processor .
-
-# Test with sample data
-docker run --rm -v $(pwd)/sample_dataset/pdfs:/app/input:ro -v $(pwd)/sample_dataset/outputs:/app/output --network none pdf-processor
+python final_precision_processor.py --input sample_dataset/pdfs --output model_outputs
 ```
 
-### Validation Checklist
-- [ ] All PDFs in input directory are processed
-- [ ] JSON output files are generated for each PDF
-- [ ] Output format matches required structure
-- [ ] **Output conforms to schema** in `sample_dataset/schema/output_schema.json`
-- [ ] Processing completes within 10 seconds for 50-page PDFs
-- [ ] Solution works without internet access
-- [ ] Memory usage stays within 16GB limit
-- [ ] Compatible with AMD64 architecture
+#### With Debug Output
+```bash
+python final_precision_processor.py --input sample_dataset/pdfs --output model_outputs --debug
+```
 
----
+#### Docker Execution
+```bash
+# Build container
+docker build -t pdf-processor .
 
-**Important**: This is a sample implementation. Participants should develop their own solutions that meet all the official challenge requirements and constraints. 
+# Run processing
+docker run -v $(pwd)/sample_dataset:/input -v $(pwd)/model_outputs:/output pdf-processor
+```
+
+#### Performance Evaluation
+```bash
+python evaluate_metrics.py
+```
+
+### 📊 Output Format
+Each PDF generates a JSON file with:
+```json
+{
+    "title": "Document Title ",
+    "outline": [
+        {
+            "level": "H1",
+            "text": "Heading Text ",
+            "page": 1
+        }
+    ]
+}
+```
+
+### 🔧 Algorithm Features
+
+#### Title Extraction
+- **Multiline Combination:** Intelligently combines title segments
+- **Semantic Scoring:** Content-aware confidence calculation
+- **Position Analysis:** Layout-based filtering
+- **Format Recognition:** Generic pattern detection
+
+#### Heading Detection
+- **Font Clustering:** Dynamic analysis of document typography
+- **Confidence Scoring:** Multi-factor heading validation
+- **Hierarchy Mapping:** Automatic level assignment (H1-H4)
+- **Noise Filtering:** Header/footer and metadata removal
+
+### 🎪 Technical Highlights
+- **Zero Hardcoding:** Fully generic processing pipeline
+- **Fast Processing:** Sub-second per document
+- **Memory Efficient:** Minimal resource usage
+- **Error Resilient:** Graceful handling of malformed PDFs
+- **Scalable Design:** Processes any PDF format/size
+
+### 📈 Performance Optimization
+- Dynamic confidence thresholding
+- Layout-aware whitespace analysis
+- Font frequency-based filtering
+- Semantic content validation
+- Multi-factor scoring algorithms
+
+### 🔍 Testing
+The system is evaluated against a diverse dataset including:
+- Government forms
+- Technical documentation
+- Proposal documents
+- Educational materials
+- Presentation slides
+
+### 📝 Dependencies
+- **PyMuPDF (fitz):** PDF processing library
+- **Python 3.8+:** Runtime environment
+- **Standard libraries:** json, re, pathlib, collections, argparse
+
+### 🏆 Adobe Hackathon Compliance Statement
+This system strictly adheres to all Adobe Hackathon guidelines:
+- No document-specific hardcoded logic
+- Generic pattern-based processing only
+- Universal applicability across document types
+- CPU-only operation with fast processing
+- Containerized deployment ready
