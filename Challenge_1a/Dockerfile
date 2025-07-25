@@ -1,16 +1,21 @@
-FROM --platform=linux/amd64 python:3.10
+FROM --platform=linux/amd64 python:3.10-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (minimal, only if needed)
 RUN apt-get update && apt-get install -y \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
-# Install Python dependencies
-RUN pip install --no-cache-dir PyPDF2==3.0.1 pdfplumber==0.10.3
+# Install Python dependencies (PyMuPDF for PDF processing)
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir PyMuPDF==1.23.24
 
-# Copy the processing script
-COPY process_pdfs.py .
+# Copy the final submission processor
+COPY final_precision_processor.py .
 
-# Run the script
-CMD ["python", "process_pdfs.py"] 
+# Create required directories
+RUN mkdir -p /app/input /app/output
+
+# Set default command with proper input/output paths
+CMD ["python", "final_precision_processor.py", "--input", "/app/input", "--output", "/app/output"] 
