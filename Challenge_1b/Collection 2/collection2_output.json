@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "input_documents": [
+      "Learn Acrobat - Create and Convert_1.pdf",
+      "Learn Acrobat - Create and Convert_2.pdf",
+      "Learn Acrobat - Edit_1.pdf",
+      "Learn Acrobat - Edit_2.pdf",
+      "Learn Acrobat - Export_1.pdf",
+      "Learn Acrobat - Export_2.pdf",
+      "Learn Acrobat - Fill and Sign.pdf",
+      "Learn Acrobat - Generative AI_1.pdf",
+      "Learn Acrobat - Generative AI_2.pdf",
+      "Learn Acrobat - Request e-signatures_1.pdf",
+      "Learn Acrobat - Request e-signatures_2.pdf",
+      "Learn Acrobat - Share_1.pdf",
+      "Learn Acrobat - Share_2.pdf",
+      "Test Your Acrobat Exporting Skills.pdf",
+      "The Ultimate PDF Sharing Checklist.pdf"
+    ],
+    "persona": "HR professional",
+    "job_to_be_done": "Create and manage fillable forms for onboarding and compliance.",
+    "processing_timestamp": "2025-07-27T19:05:45.449557"
+  },
+  "extracted_sections": [
+    {
+      "document": "Learn Acrobat - Create and Convert_1.pdf",
+      "section_title": "Create multiple PDFs from multiple files",
+      "importance_rank": 1,
+      "page_number": 12
+    },
+    {
+      "document": "Learn Acrobat - Request e-signatures_1.pdf",
+      "section_title": "E-signature workflow management",
+      "importance_rank": 2,
+      "page_number": 10
+    },
+    {
+      "document": "Learn Acrobat - Request e-signatures_2.pdf",
+      "section_title": "E-signature workflow management",
+      "importance_rank": 3,
+      "page_number": 1
+    },
+    {
+      "document": "Learn Acrobat - Fill and Sign.pdf",
+      "section_title": "Fill and sign PDF forms",
+      "importance_rank": 4,
+      "page_number": 2
+    },
+    {
+      "document": "Learn Acrobat - Generative AI_1.pdf",
+      "section_title": "Acrobat export skills assessment",
+      "importance_rank": 5,
+      "page_number": 2
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "Learn Acrobat - Share_2.pdf",
+      "refined_text": "Note:  Be sure to use the  Attach file  option from the Add Comments tool when  attaching files for a document review. Document-level file attachments that you attach  using the  Attach file  tool from the   Edit  >  More  menu aren’t tracked with other  comments in a review workflow and may cause your attached comments to be lost.",
+      "page_number": 14
+    },
+    {
+      "document": "Learn Acrobat - Create and Convert_2.pdf",
+      "refined_text": "When converting individual AutoCAD files, you don't usually need to change page size and  plotting settings. PDFMaker uses the appropriate layout page size and plotting information to  create a correctly sized PDF file.",
+      "page_number": 3
+    },
+    {
+      "document": "Learn Acrobat - Edit_2.pdf",
+      "refined_text": "To streamline the process, consider the following best practices and guidelines before editing  a scanned document:",
+      "page_number": 14
+    },
+    {
+      "document": "Learn Acrobat - Share_1.pdf",
+      "refined_text": "Mark up text  You can use markup tools to give suggestions for formatting the text, structuring a document,  or for providing other edit suggestions. Markups and comments don’t change the actual text  in the PDF.      Note:  The  Insert text  and  Replace selected text  commenting tools are now available for  shared PDF files, making it easier for you to suggest changes and provide feedback directly  within the document.",
+      "page_number": 6
+    },
+    {
+      "document": "The Ultimate PDF Sharing Checklist.pdf",
+      "refined_text": "information, this checklist will ensure you cover all the bases. Let's dive",
+      "page_number": 1
+    },
+    {
+      "document": "Learn Acrobat - Edit_1.pdf",
+      "refined_text": "various documents to PDF forms. You can use the options in the Edit panel to replace, edit, or",
+      "page_number": 2
+    },
+    {
+      "document": "Learn Acrobat - Generative AI_2.pdf",
+      "refined_text": "If you have multiple profiles associated with your organization-provided Adobe account, you  must first choose which profile to sign in with. Then, request a product from that profile. The  request will be routed to the organization and administrators associated with that profile.",
+      "page_number": 16
+    }
+  ]
+}
