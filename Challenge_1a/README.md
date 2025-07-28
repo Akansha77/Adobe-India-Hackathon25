@@ -1,53 +1,31 @@
-# Adobe India Hackathon 2025 - Round 1A
-## PDF Document Intelligence System
+# Challenge 1a: PDF Document Intelligence
 
-### 🎯 Challenge Description
+## 🎯 Objective
 Extract titles and hierarchical headings from PDF documents with high precision and recall.
 
-### 📋 System Requirements & Compliance
-✅ **CPU-only processing** (no GPU dependencies)  
-✅ **Processing time** <10 seconds per document  
-✅ **Model size** <200MB (PyMuPDF only)  
-✅ **Universal processing** (no hardcoded document-specific logic)  
-✅ **Docker containerization** with proper I/O handling  
-✅ **Offline operation** (no internet/API calls)  
+## � Performance Results
+- **Title Accuracy:** 60.0%
+- **Heading Precision:** 31.9%
+- **Heading Recall:** 91.4%
+- **F1-Score:** 47.3%
 
-### 🚀 Current Performance Metrics
-- **Title Accuracy:** 60.0% (3/5 files)
-- **Heading Precision:** 40.0%
-- **Heading Recall:** 48.3%
-- **F1-Score:** 43.8%
-- **Processing Speed:** 0.1s average per file
+## 🛠️ Usage
+```bash
+# Process PDFs
+python main.py sample_dataset/pdfs -o model_outputs
 
-### 🏗️ Architecture
-- **Dynamic Font Clustering:** Automatic heading font detection
-- **Semantic Title Scoring:** Content-aware title extraction
-- **Layout Analysis:** Whitespace and position-based filtering
-- **Header/Footer Detection:** Automatic removal of repeated elements
-- **Multiline Title Combination:** Intelligent text grouping
+# Evaluate results
+python evaluate.py model_outputs sample_dataset/outputs
+```
 
-### 📁 Project Structure
+## 📁 Structure
 ```
 Challenge_1a/
-├── final_precision_processor.py    # Main PDF processor
-├── evaluate_metrics.py             # Performance evaluation
-├── Dockerfile                      # Container configuration
-├── README.md                       # This file
-├── sample_dataset/                 # Test data
-│   ├── pdfs/                      # Input PDF files
-│   ├── outputs/                   # Ground truth JSON
-│   └── schema/                    # Output schema
-└── model_outputs/                 # Generated results
+├── main.py              # PDF processor
+├── evaluate.py          # Evaluation script
+├── sample_dataset/      # Test data & ground truth
+└── model_outputs/       # Generated results
 ```
-
-### 🛠️ Usage
-
-#### Local Execution
-```bash
-python final_precision_processor.py --input sample_dataset/pdfs --output model_outputs
-```
-
-#### With Debug Output
 ```bash
 python final_precision_processor.py --input sample_dataset/pdfs --output model_outputs --debug
 ```

@@ -1,41 +1,77 @@
 # Adobe India Hackathon 2025
 
-## Welcome to the "Connecting the Dots" Challenge
+## 🎯 Overview
+PDF intelligence solutions for document processing and content extraction challenges. This project implements advanced PDF analysis capabilities using PyMuPDF for extracting structured information from documents.
 
-### Rethink Reading. Rediscover Knowledge
+## � Key Features
+- **CPU-only processing** with optimized performance
+- **Universal PDF processing** (no hardcoded logic)
+- **Persona-based content extraction** for different use cases
+- **Hierarchical heading detection** with font analysis
+- **Multi-collection processing** across domains
 
-What if every time you opened a PDF, it didn't just sit there—it spoke to you, connected ideas, and narrated meaning across your entire library?
+## �📊 Challenge Results
 
-That's the future we're building — and we want you to help shape it.
+### Challenge 1a: PDF Document Intelligence
+Extract titles and hierarchical headings from PDFs
+- **Title Accuracy:** 60.0%
+- **Heading Precision:** 31.9%
+- **Heading Recall:** 91.4%
+- **F1-Score:** 47.3%
+- **Processing Speed:** ~0.1s per file
 
-In the Connecting the Dots Challenge, your mission is to reimagine the humble PDF as an intelligent, interactive experience—one that understands structure, surfaces insights, and responds to you like a trusted research companion.
+### Challenge 1b: Multi-Collection PDF Intelligence  
+Extract persona-based content from PDF collections
+- **Average Precision:** 50.0%
+- **Average Recall:** 40.0%
+- **Average F1-Score:** 44.4%
+- **Best Collection:** Travel Planner (88.9%)
 
-### The Journey Ahead
+## �️ Technologies Used
+- **Python 3.x** - Core programming language
+- **PyMuPDF (fitz)** - PDF processing and text extraction
+- **JSON** - Data serialization and output format
+- **Docker** - Containerization support
 
-**Round 1:**
-Kick things off by building the brains — extract structured outlines from raw PDFs with blazing speed and pinpoint accuracy. Then, power it up with on-device intelligence that understands sections and links related ideas together.
+## �🚀 Quick Start
+```bash
+# Run Challenge 1a
+cd Challenge_1a
+python main.py sample_dataset/pdfs -o model_outputs
+python evaluate.py model_outputs sample_dataset/outputs
 
-**Round 2:**
-It's showtime! Build a beautiful, intuitive reading webapp using Adobe's PDF Embed API. You will be using your Round 1 work to design a futuristic webapp.
+# Run Challenge 1b
+cd Challenge_1b
+python run_collections.py
+python evaluate_challenge1b.py
+```
 
-### Why This Matters
+## 📁 Project Structure
+```
+Adobe-India-Hackathon25/
+├── Challenge_1a/           # PDF title & heading extraction
+│   ├── main.py            # Core PDF processor
+│   ├── evaluate.py        # Performance evaluation
+│   ├── sample_dataset/    # Test data & ground truth
+│   └── model_outputs/     # Generated results
+└── Challenge_1b/          # Multi-collection PDF intelligence
+    ├── run_collections.py # Main collection runner
+    ├── evaluate_challenge1b.py # Evaluation script
+    ├── Collection 1/      # Travel planning domain
+    ├── Collection 2/      # HR training domain
+    └── Collection 3/      # Food service domain
+```
 
-In a world flooded with documents, what wins is not more content — it's context. You're not just building tools — you're building the future of how we read, learn, and connect. No matter your background — ML hacker, UI builder, or insight whisperer — this is your stage.
+## 📋 Requirements
+- Python 3.7+
+- PyMuPDF (`pip install PyMuPDF`)
+- Standard Python libraries (json, argparse, pathlib, etc.)
 
-Are you in?
+## 🎯 Challenge Objectives
+1. **Challenge 1a**: Build a robust PDF title and heading extraction system with high precision and recall
+2. **Challenge 1b**: Develop persona-aware content extraction that adapts to different user roles and tasks
 
-It's time to read between the lines. Connect the dots. And build a PDF experience that feels like magic. Let's go.
-
----
-
-## Challenge Solutions
-
-### [Challenge 1a: PDF Processing Solution](./Challenge_1a/README.md)
-Basic PDF processing with Docker containerization and structured data extraction.
-
-### [Challenge 1b: Multi-Collection PDF Analysis](./Challenge_1b/README.md)
-Advanced persona-based content analysis across multiple document collections.
-
----
-
-**Note**: Each challenge directory contains detailed documentation and implementation details. Please refer to the individual README files for comprehensive information about each solution.
+## 📈 Performance Insights
+- Challenge 1a excels in recall (91.4%) but needs precision improvement
+- Challenge 1b shows strong performance for travel planning scenarios
+- Both challenges demonstrate CPU-efficient processing capabilities

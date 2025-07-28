@@ -1,49 +1,36 @@
-# 📄 Adobe Hackathon 2025 – Challenge 1B: Multi-Collection PDF Intelligence
-
-A smart PDF processing system that extracts **important content** based on **user roles (personas)** across multiple domains like travel planning, HR training, and food service.
-
----
+# Challenge 1b: Multi-Collection PDF Intelligence
 
 ## 🎯 Objective
+Extract relevant content from PDFs based on user personas and specific tasks across multiple domains.
 
-Automatically process different sets of PDFs and extract the most **relevant sections** based on the persona’s goals.
+## 📊 Performance Results
+- **Average Precision:** 50.0%
+- **Average Recall:** 40.0%
+- **Average F1-Score:** 44.4%
+- **Rank Accuracy:** 100.0%
 
-### 🔍 Supported Personas:
-| Collection | Persona           | Use Case |
-|-----------|-------------------|----------|
-| Collection 1 | Travel Planner     | Plan a 4-day trip for college students |
-| Collection 2 | HR Professional    | Create Adobe Acrobat training content |
-| Collection 3 | Food Contractor    | Design a vegetarian buffet menu |
+## 🔍 Collections
+| Collection | Persona | Task | F1-Score |
+|------------|---------|------|----------|
+| Collection 1 | Travel Planner | Plan 4-day trip | 88.9% |
+| Collection 2 | HR Professional | Create training content | 44.4% |
+| Collection 3 | Food Contractor | Design buffet menu | 0.0% |
 
----
-
-## 📁 Folder Structure
-
-Challenge_1b/
-├── run_collections.py # Run all collections together
-├── Collection 1/ # Travel planning PDFs
-├── Collection 2/ # HR training PDFs
-├── Collection 3/ # Recipe PDFs
-
-
-Each collection contains:
-- PDFs to process
-- `collectionX_processor.py` → collection-specific processor
-- `challenge1b_input.json` → persona & task info
-- `collectionX_output.json` → output with extracted data
-
----
-
-## 🚀 How to Run
-
-### ✅ Run All Collections at Once
+## 🛠️ Usage
 ```bash
+# Run all collections
 python run_collections.py
 
----
+# Evaluate results
+python evaluate_challenge1b.py
+```
 
-##▶️ Run Individual Collection
-cd "Collection 1"
-python collection1_processor.py
-
-
+## 📁 Structure
+```
+Challenge_1b/
+├── run_collections.py          # Main runner
+├── evaluate_challenge1b.py     # Evaluation script
+├── Collection 1/               # Travel planning
+├── Collection 2/               # HR training
+└── Collection 3/               # Food service
+```
