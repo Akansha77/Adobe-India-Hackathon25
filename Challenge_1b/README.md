@@ -39,3 +39,11 @@ Each collection contains:
 ### ✅ Run All Collections at Once
 ```bash
 python run_collections.py
+
+---
+
+##▶️ Run Individual Collection
+cd "Collection 1"
+python collection1_processor.py
+
+
