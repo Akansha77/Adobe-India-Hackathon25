@@ -118,7 +118,7 @@ class Collection3Processor:
             dict: Complete analysis results for buffet menu planning
         """
         if collection_path is None:
-            collection_path = Path("Collection 3")
+            collection_path = Path(".")
         
         if self.debug:
             print(f"🔍 Processing Collection 3: {collection_path}")
@@ -488,7 +488,7 @@ def main():
     processor = Collection3Processor(debug=args.debug)
     
     if args.debug:
-        print("🍽️  Starting Collection 3 processing for Food Contractor...")
+        print("Starting Collection 3 processing for Food Contractor...")
     
     try:
         # Process Collection 3

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 🏆 Adobe India Hackathon 2025 - Challenge 1B Collection 2 Processor
-HR Professional - Acrobat Forms Management
+HR Professional - Adobe Acrobat Forms Management
 
 🎯 FOCUSED ON COLLECTION 2:
 - HR professional persona
@@ -114,7 +114,7 @@ class Collection2Processor:
             dict: Complete analysis results for HR form management
         """
         if collection_path is None:
-            collection_path = Path("Collection 2")
+            collection_path = Path(".")
         
         if self.debug:
             print(f"🔍 Processing Collection 2: {collection_path}")
@@ -614,8 +614,8 @@ def main():
     # Initialize processor
     processor = Collection2Processor(debug=args.debug)
     
-    print("🎯 Adobe India Hackathon 2025 - Challenge 1B Collection 2")
-    print("📋 Processing HR Professional - Acrobat Forms Management")
+    print("Adobe India Hackathon 2025 - Challenge 1B Collection 2")
+    print("Processing HR Professional - Acrobat Forms Management")
     print("=" * 60)
     
     # Process Collection 2
