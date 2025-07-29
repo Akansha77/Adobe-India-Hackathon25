@@ -37,8 +37,8 @@ Extract persona-based content from PDF collections
 ```bash
 # Run Challenge 1a
 cd Challenge_1a
-python main.py sample_dataset/pdfs -o model_outputs
-python evaluate.py model_outputs sample_dataset/outputs
+python main.py sample_dataset/pdfs -o Final_outputs
+python evaluate.py Final_outputs sample_dataset/outputs
 
 # Run Challenge 1b
 cd Challenge_1b
