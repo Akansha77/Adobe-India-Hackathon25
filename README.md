@@ -53,7 +53,7 @@ Adobe-India-Hackathon25/
 │   ├── main.py            # Core PDF processor
 │   ├── evaluate.py        # Performance evaluation
 │   ├── sample_dataset/    # Test data & ground truth
-│   └── model_outputs/     # Generated results
+│   └── Final_outputs/     # Generated results
 └── Challenge_1b/          # Multi-collection PDF intelligence
     ├── run_collections.py # Main collection runner
     ├── evaluate_challenge1b.py # Evaluation script
