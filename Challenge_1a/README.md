@@ -12,10 +12,10 @@ Extract titles and hierarchical headings from PDF documents with high precision 
 ## 🛠️ Usage
 ```bash
 # Process PDFs
-python main.py sample_dataset/pdfs -o model_outputs
+python main.py sample_dataset/pdfs -o Final_outputs
 
 # Evaluate results
-python evaluate.py model_outputs sample_dataset/outputs
+python evaluate.py Final_outputs sample_dataset/outputs
 ```
 
 ## 📁 Structure
@@ -24,10 +24,10 @@ Challenge_1a/
 ├── main.py              # PDF processor
 ├── evaluate.py          # Evaluation script
 ├── sample_dataset/      # Test data & ground truth
-└── model_outputs/       # Generated results
+└── Final_outputs/       # Generated results
 ```
 ```bash
-python final_precision_processor.py --input sample_dataset/pdfs --output model_outputs --debug
+python final_precision_processor.py --input sample_dataset/pdfs --output Final_outputs --debug
 ```
 
 #### Docker Execution
@@ -36,7 +36,7 @@ python final_precision_processor.py --input sample_dataset/pdfs --output model_o
 docker build -t pdf-processor .
 
 # Run processing
-docker run -v $(pwd)/sample_dataset:/input -v $(pwd)/model_outputs:/output pdf-processor
+docker run -v $(pwd)/sample_dataset:/input -v $(pwd)/Final_outputs:/output pdf-processor
 ```
 
 #### Performance Evaluation
